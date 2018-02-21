@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
+import { Container } from 'semantic-ui-react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import { Home } from './components'
+import { Navbar, Home } from './components'
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path='/' component={Home} />
-        </Switch>
-      </Router>
+      <Container>
+        <Navbar />
+        <Router>
+          <Switch>
+            <Route exact path='/' component={Home} />
+          </Switch>
+        </Router>
+      </Container>
     )
   }
 }

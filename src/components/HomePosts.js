@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Segment, Comment } from 'semantic-ui-react'
 
-class HomePost extends Component {
+class HomePosts extends Component {
   render() {
     return (
       <Segment>
@@ -25,4 +25,4 @@ class HomePost extends Component {
   }
 }
 
-export default HomePost
+export default HomePosts

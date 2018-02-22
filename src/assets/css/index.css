@@ -9,5 +9,17 @@ body {
 }
 
 .ui.menu .item>img:not(.ui) {
-  width: 10em;
+  width: 8em;
+}
+
+.ui.pointing.dropdown>.menu {
+  margin-top: 2rem;
+}
+
+.ui.menu .right.menu .dropdown:last-child .menu {
+  right: -17px;
+}
+
+.ui.dropdown .menu {
+  min-width: 156.94px;
 }

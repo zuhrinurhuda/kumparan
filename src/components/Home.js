@@ -7,7 +7,7 @@ import { fetch_users_from_api, fetch_posts_from_api } from '../redux/actions'
 import { LeftSidebar, RightSidebar, HomePosts } from '../components'
 
 const mapStateToProps = (state) => {
-  console.log('---> 1')
+  // console.log('---> 1')
   return {
     users: state.userReducers.users,
     posts: state.postReducers.posts
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log('---> 2')
+  // console.log('---> 2')
   return {
     fetchUsers: () => dispatch(fetch_users_from_api()),
     fetchPosts: () => dispatch(fetch_posts_from_api())
@@ -24,18 +24,18 @@ const mapDispatchToProps = (dispatch) => {
 
 class Home extends Component {
   constructor(props) {
-    console.log('---> 3')
+    // console.log('---> 3')
     super(props)
   }
 
   componentWillMount() {
-    console.log('---> 4')
+    // console.log('---> 4')
   }
 
   render() {
-    console.log('---> 5')
+    // console.log('---> 5')
     // console.log('---> 5', this.props.users)
-    console.log('---> 5', this.props.posts)
+    // console.log('---> 5', this.props.posts)
 
     return (
       <Grid>
@@ -57,7 +57,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    console.log('---> 6')
+    // console.log('---> 6')
     this.props.fetchUsers()
     this.props.fetchPosts()
   }

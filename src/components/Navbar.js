@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Menu, Input } from 'semantic-ui-react'
 
+import logo from '../assets/img/kumparan.svg'
+
 class Navbar extends Component {
   constructor () {
     super()
@@ -21,11 +23,13 @@ class Navbar extends Component {
     const { activeItem } = this.state
 
     return (
-      <Menu secondary>
-        <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
+      <Menu>
+        <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
+          <img src={logo} alt='Kumparan'/>
+        </Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Input icon='search' placeholder='Search...' />
+            <Input transparent icon='search' placeholder='Search...' />
           </Menu.Item>
           <Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} />
           <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} />

@@ -4,20 +4,21 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
 
 import store from './redux/store'
-import { Navbar, Home } from './components'
+import { Navbar, Home, Dashboard } from './components'
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Container>
-          <Navbar />
-          <Router>
+        <Router>
+          <Container>
+            <Navbar />
             <Switch>
               <Route exact path='/' component={Home} />
+              <Route path='/dashboard' component={Dashboard} />
             </Switch>
-          </Router>
-        </Container>
+          </Container>
+        </Router>
       </Provider>
     )
   }

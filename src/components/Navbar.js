@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Menu, Input, Dropdown, Image } from 'semantic-ui-react'
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import logo from '../assets/img/kumparan.svg'
 import firebase from '../firebase'
@@ -9,7 +9,6 @@ class Navbar extends Component {
   constructor() {
     super()
     this.state = {
-      activeItem: 'home',
       isLogin: false
     }
 
@@ -19,9 +18,7 @@ class Navbar extends Component {
   }
 
   handleItemClick(events, name) {
-    this.setState({
-      activeItem: name
-    })
+    // nothing
   }
 
   login() {
@@ -56,7 +53,6 @@ class Navbar extends Component {
   }
 
   render() {
-    const { activeItem } = this.state
     const user = firebase.auth().currentUser
     const trigger = (
       <span>
@@ -64,42 +60,33 @@ class Navbar extends Component {
       </span>
     )
 
-    // const DashboardLink = ({ label, to, activeOnlyWhenExact }) => (
-    //   <Route
-    //     path={to}
-    //     exact={activeOnlyWhenExact}
-    //     children={({ match }) => (
-    //       <div className={match ? "active" : ""}>
-    //         {match ? "> " : ""}
-    //         <Link to={to}>{label}</Link>
-    //       </div>
-    //     )}
-    //   />
-    // )
+    const HomeLink = withRouter(({ history }) => (
+      <Menu.Item onClick={() => { history.push('/') }}>
+        <img src={logo} alt='Kumparan' />
+      </Menu.Item >
+    ))
+
+    const DashboardLink = withRouter(({ history }) => (
+      <Dropdown.Item text='Dashboard' icon='dashboard' onClick={() => { history.push('/dashboard') }}/>
+    ))
 
     return (
       <Menu>
-        <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
-          <img src={logo} alt='Kumparan'/>
-        </Menu.Item>
+        <HomeLink />
         <Menu.Menu position='right'>
           <Menu.Item>
             <Input transparent icon='search' placeholder='Search...' />
           </Menu.Item>
           {this.state.isLogin ?
-            <Menu.Item>
+            <Menu.Item onClick={this.handleItemClick}>
               <Dropdown trigger={trigger} pointing='top' icon={null}>
                 <Dropdown.Menu>
-                  <Router>
-                    <Link to="/dashboard">
-                      <Dropdown.Item text='Dashboard' icon='dashboard' />
-                    </Link>
-                  </Router>
+                  <DashboardLink />
                   <Dropdown.Item text='Log Out' icon='log out' onClick={this.logout} />
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Item> :
-            <Menu.Item name='Log In' active={activeItem === 'Log In'} onClick={this.login} />
+            <Menu.Item onClick={this.login} />
           }
         </Menu.Menu>
       </Menu>

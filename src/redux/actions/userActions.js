@@ -3,7 +3,7 @@ import axios from 'axios'
 const save_users_to_store = (users) => {
   return {
     type: 'SAVE_USERS_TO_STORE',
-    payload: users
+    users
   }
 }
 

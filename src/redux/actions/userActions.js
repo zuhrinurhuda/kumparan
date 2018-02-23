@@ -3,7 +3,7 @@ import axios from 'axios'
 const save_users_to_store = (users) => {
   return {
     type: 'SAVE_USERS_TO_STORE',
-    payload: users
+    users
   }
 }
 
@@ -15,5 +15,12 @@ export const fetch_users_from_api = () => {
         dispatch(save_users_to_store(data))
       })
       .catch(err => console.log(err))
+  }
+}
+
+export const add_new_users = (newUser) => {
+  return {
+    type: 'ADD_NEW_USER',
+    newUser
   }
 }

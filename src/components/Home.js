@@ -12,19 +12,13 @@ import {
 
 import { LeftSidebar, RightSidebar, HomePosts } from '../components'
 
-const mapStateToProps = (state) => {
-  // console.log('lifecycle test ---> 1')
+const mapStateToProps = state => {
   return {
-    users: state.userReducers.users,
     posts: state.postReducers.posts,
-    comments: state.postReducers.comments,
-    albums: state.photoReducers.albums,
-    photos: state.photoReducers.photos
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  // console.log('lifecycle test ---> 2')
+const mapDispatchToProps = dispatch => {
   return {
     fetchUsers: () => dispatch(fetch_users_from_api()),
     fetchPosts: () => dispatch(fetch_posts_from_api()),
@@ -35,17 +29,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Home extends Component {
-  constructor(props) {
-    // console.log('lifecycle test ---> 3')
-    super(props)
-  }
-
-  componentWillMount() {
-    // console.log('lifecycle test ---> 4')
-  }
-
   render() {
-    // console.log('lifecycle test ---> 5')
     return (
       <Grid>
         <Grid.Row>
@@ -66,7 +50,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    // console.log('lifecycle test ---> 6')
     this.props.fetchUsers()
     this.props.fetchPosts()
     this.props.fetchComments()

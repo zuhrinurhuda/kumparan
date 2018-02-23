@@ -35,3 +35,10 @@ export const fetch_comments_from_api = () => {
       .catch(err => console.log(err))
   }
 }
+
+export const add_new_post = (newPost) => {
+  return {
+    type: 'ADD_NEW_POST',
+    newPost
+  }
+}

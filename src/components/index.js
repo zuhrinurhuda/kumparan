@@ -8,6 +8,7 @@ import ProfileSidebar from './ProfileSidebar'
 import PostList from './PostList'
 import AlbumList from './AlbumList'
 import FriendList from './FriendList'
+import FriendDetail from './FriendDetail'
 
 export {
   Navbar,
@@ -19,5 +20,6 @@ export {
   ProfileSidebar,
   PostList,
   AlbumList,
-  FriendList
+  FriendList,
+  FriendDetail
 }

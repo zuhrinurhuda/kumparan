@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
 
 import store from './redux/store'
-import { Navbar, Home, Dashboard } from './components'
+import { Navbar, Home, Dashboard, FriendDetail } from './components'
 
 class App extends Component {
   render() {
@@ -16,6 +16,7 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/dashboard' component={Dashboard} />
+              <Route path='/:username' component={FriendDetail} />
             </Switch>
           </Container>
         </Router>

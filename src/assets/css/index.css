@@ -23,3 +23,7 @@ body {
 .ui.dropdown .menu {
   min-width: 156.94px;
 }
+
+.ui.form {
+  padding: 1rem;
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Segment, Image, List } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     users: state.userReducers.users
   }
@@ -10,13 +10,12 @@ const mapStateToProps = (state) => {
 
 class FriendList extends Component {
   render() {
-    console.log(this.props.users)
     return (
       <Segment>
         {this.props.users.map(user => {
           return (
           <List animated selection verticalAlign='middle' key={user.id}>
-            <List.Item>
+            <List.Item onClick={() => this.props.history.push('/')}>
               <Image avatar src='https://react.semantic-ui.com/assets/images/avatar/small/christian.jpg' />
               <List.Content>
                 <List.Header>{user.name}</List.Header>

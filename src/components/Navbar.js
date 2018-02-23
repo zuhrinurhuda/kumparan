@@ -1,13 +1,27 @@
 import React, { Component } from 'react'
 import { Menu, Input, Dropdown, Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import logo from '../assets/img/kumparan.svg'
 import firebase from '../firebase'
+import { add_new_users } from '../redux/actions'
+
+const mapStateToProps = state => {
+  return {
+    users: state.userReducers.users
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addNewUser: (newUser) => dispatch(add_new_users(newUser))
+  }
+}
 
 class Navbar extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       isLogin: false
     }
@@ -17,7 +31,7 @@ class Navbar extends Component {
     this.logout = this.logout.bind(this)
   }
 
-  handleItemClick(events, name) {
+  handleItemClick() {
     // nothing
   }
 
@@ -25,6 +39,31 @@ class Navbar extends Component {
     const provider = new firebase.auth.FacebookAuthProvider()
     firebase.auth().signInWithPopup(provider)
       .then(({ user }) => {
+        let newUser = {
+          id: (this.props.users[this.props.users.length - 1].id + 1),
+          name: user.displayName,
+          username: user.displayName.split(' ')[0],
+          email: user.email,
+          address: {
+            street: '',
+            suite: '',
+            city: '',
+            zipcode: '',
+            geo: {
+              lat: '',
+              lng: ''
+            }
+          },
+          phone: '',
+          website: '',
+          company: {
+            name: '',
+            catchPhrase: '',
+            bs: '',
+          }
+        }
+        this.props.addNewUser(newUser)
+
         this.setState({
           isLogin: true
         })
@@ -53,6 +92,7 @@ class Navbar extends Component {
   }
 
   render() {
+    // firebase.auth().currentUser untuk handle data user jika page ter-reload
     const user = firebase.auth().currentUser
     const trigger = (
       <span>
@@ -60,6 +100,7 @@ class Navbar extends Component {
       </span>
     )
 
+    // menggunakan withRouter untuk history.push karena belum ada history di props
     const HomeLink = withRouter(({ history }) => (
       <Menu.Item onClick={() => { history.push('/') }}>
         <img src={logo} alt='Kumparan' />
@@ -86,7 +127,7 @@ class Navbar extends Component {
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Item> :
-            <Menu.Item onClick={this.login} />
+            <Menu.Item name='Log in with Facebook' onClick={this.login} />
           }
         </Menu.Menu>
       </Menu>
@@ -98,4 +139,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

@@ -17,3 +17,10 @@ export const fetch_users_from_api = () => {
       .catch(err => console.log(err))
   }
 }
+
+export const add_new_users = (newUser) => {
+  return {
+    type: 'ADD_NEW_USER',
+    newUser
+  }
+}

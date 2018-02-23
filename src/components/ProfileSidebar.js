@@ -5,7 +5,7 @@ import { Link} from "react-router-dom"
 
 import firebase from '../firebase'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     users: state.userReducers.users,
     posts: state.postReducers.posts

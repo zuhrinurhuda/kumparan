@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Segment } from 'semantic-ui-react'
 
-import { LeftSidebar, RightSidebar, HomePosts } from '../components'
+import { LeftSidebar, RightSidebar, HomePosts } from '../../components'
 
 const mapStateToProps = state => {
   return {

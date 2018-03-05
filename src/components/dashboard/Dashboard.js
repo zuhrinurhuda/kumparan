@@ -8,7 +8,7 @@ import {
   PostList,
   AlbumList,
   FriendList
-} from '../components'
+} from '../../components'
 
 class Dashboard extends Component {
   render() {

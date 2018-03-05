@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 // import logo from '../assets/img/kumparan.svg'
-import firebase from '../firebase'
-import { save_user_profile, add_new_user } from '../redux/actions'
+import firebase from '../../firebase'
+import { save_user_profile, add_new_user } from '../../redux/actions'
 
 const mapStateToProps = state => {
   return {

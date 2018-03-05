@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Segment, Form, Item } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
-import firebase from '../firebase'
-import { add_new_post } from '../redux/actions'
+import { add_new_post } from '../../redux/actions'
 
 const mapStateToProps = state => {
   return {
@@ -23,7 +22,6 @@ class PostList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: firebase.auth().currentUser,
       title: '',
       body: ''
     }
@@ -39,16 +37,15 @@ class PostList extends Component {
   }
 
   handleSubmit() {
-    let currentUser = this.state.user
-    let user = this.props.users.filter(user => user.name === currentUser.displayName)
     let newPost = {
       id: (this.props.posts[this.props.posts.length - 1].id + 1),
-      userId: user[0].id,
+      userId: this.props.userProfile.id,
       title: this.state.title,
       body: this.state.body
     }
 
     this.props.addNewPost(newPost)
+
     this.setState({
       title: '',
       body: ''
@@ -56,14 +53,11 @@ class PostList extends Component {
   }
 
   render() {
-    console.log('post list', this.props)
-    // let currentUser = this.state.user
-    // let user = this.props.users.filter(user => user.name === currentUser.displayName)
-    // let posts = this.props.posts.filter(post => post.userId === user[0].id)
+    let posts = this.props.posts.filter(post => post.userId === this.props.userProfile.id)
 
     return (
       <Segment.Group>
-        {/* <Form>
+        <Form>
           <Form.Group widths='equal'>
             <Form.Input fluid
               name='title'
@@ -93,7 +87,7 @@ class PostList extends Component {
             </Item.Group>
           </Segment>
           )
-        })} */}
+        })}
       </Segment.Group>
     )
   }

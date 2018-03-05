@@ -3,19 +3,21 @@ import { Menu, Input, Dropdown, Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import logo from '../assets/img/kumparan.svg'
+// import logo from '../assets/img/kumparan.svg'
 import firebase from '../firebase'
-import { add_new_users } from '../redux/actions'
+import { save_user_profile, add_new_user } from '../redux/actions'
 
 const mapStateToProps = state => {
   return {
+    userProfile: state.userReducers.userProfile,
     users: state.userReducers.users
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addNewUser: (newUser) => dispatch(add_new_users(newUser))
+    saveUserProfile: (userData) => dispatch(save_user_profile(userData)),
+    addNewUser: (newUser) => dispatch(add_new_user(newUser))
   }
 }
 
@@ -32,41 +34,45 @@ class Navbar extends Component {
   }
 
   handleItemClick() {
-    // nothing
+    // nothing just trigger link style
+  }
+
+  userProfile(user) {
+    // schema from json placeholder API
+    let userData = {
+      id: (this.props.users[this.props.users.length - 1].id + 1),
+      name: user.displayName,
+      username: user.displayName.split(' ')[0],
+      email: user.email,
+      photoURL: user.photoURL,
+      address: {
+        street: '',
+        suite: '',
+        city: '',
+        zipcode: '',
+        geo: {
+          lat: '',
+          lng: ''
+        }
+      },
+      phone: '',
+      website: '',
+      company: {
+        name: '',
+        catchPhrase: '',
+        bs: '',
+      }
+    }
+    this.props.saveUserProfile(userData)
+    this.props.addNewUser(userData)
   }
 
   login() {
     const provider = new firebase.auth.FacebookAuthProvider()
     firebase.auth().signInWithPopup(provider)
       .then(({ user }) => {
-        let newUser = {
-          id: (this.props.users[this.props.users.length - 1].id + 1),
-          name: user.displayName,
-          username: user.displayName.split(' ')[0],
-          email: user.email,
-          address: {
-            street: '',
-            suite: '',
-            city: '',
-            zipcode: '',
-            geo: {
-              lat: '',
-              lng: ''
-            }
-          },
-          phone: '',
-          website: '',
-          company: {
-            name: '',
-            catchPhrase: '',
-            bs: '',
-          }
-        }
-        this.props.addNewUser(newUser)
-
-        this.setState({
-          isLogin: true
-        })
+        this.userProfile(user)
+        this.setState({ isLogin: true })
       })
       .catch(err => alert(err))
   }
@@ -74,9 +80,7 @@ class Navbar extends Component {
   logout() {
     firebase.auth().signOut()
       .then(() => {
-        this.setState({
-          isLogin: false
-        })
+        this.setState({ isLogin: false })
       })
       .catch(err => alert(err))
   }
@@ -84,31 +88,38 @@ class Navbar extends Component {
   checkLoginStatus() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState({ isLogin: true })
+        this.userProfile(user)
+        this.setState({
+          isLogin: true
+        })
       } else {
-        this.setState({ isLogin: false })
+        console.log('belum ada yg login')
       }
     })
   }
 
   render() {
-    // firebase.auth().currentUser untuk handle data user jika page ter-reload
-    const user = firebase.auth().currentUser
+    // console.log('navbar', this.props)
+    const { name, photoURL } = this.props.userProfile
     const trigger = (
       <span>
-        <Image avatar src={user && user.photoURL} /> {user && user.displayName}
+        <Image avatar src={photoURL} /> {name}
       </span>
     )
 
     // menggunakan withRouter untuk history.push karena belum ada history di props
     const HomeLink = withRouter(({ history }) => (
       <Menu.Item onClick={() => { history.push('/') }}>
-        <img src={logo} alt='Kumparan' />
+        {/* <img src={logo} alt='Kumparan' /> */}
       </Menu.Item >
     ))
 
     const DashboardLink = withRouter(({ history }) => (
-      <Dropdown.Item text='Dashboard' icon='dashboard' onClick={() => { history.push('/dashboard') }}/>
+      <Dropdown.Item
+        text='Dashboard'
+        icon='dashboard'
+        onClick={() => { history.push('/dashboard') }}
+      />
     ))
 
     return (

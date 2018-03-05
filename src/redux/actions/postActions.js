@@ -7,7 +7,7 @@ const save_posts_to_store = (posts) => {
   }
 }
 
-export const fetch_posts_from_api = () => {
+const fetch_posts_from_api = () => {
   return (dispatch, getState) => {
     let url = 'https://jsonplaceholder.typicode.com/posts'
     axios.get(url)
@@ -25,7 +25,7 @@ const save_comments_to_store = (comments) => {
   }
 }
 
-export const fetch_comments_from_api = () => {
+const fetch_comments_from_api = () => {
   return (dispatch, getState) => {
     let url = 'https://jsonplaceholder.typicode.com/comments'
     axios.get(url)
@@ -36,9 +36,15 @@ export const fetch_comments_from_api = () => {
   }
 }
 
-export const add_new_post = (newPost) => {
+const add_new_post = (newPost) => {
   return {
     type: 'ADD_NEW_POST',
     newPost
   }
+}
+
+export {
+  fetch_posts_from_api,
+  fetch_comments_from_api,
+  add_new_post
 }

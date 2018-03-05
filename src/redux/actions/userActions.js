@@ -7,7 +7,7 @@ const save_users_to_store = (users) => {
   }
 }
 
-export const fetch_users_from_api = () => {
+const fetch_users_from_api = () => {
   return (dispatch, getState) => {
     let url = 'https://jsonplaceholder.typicode.com/users'
     axios.get(url)
@@ -18,9 +18,22 @@ export const fetch_users_from_api = () => {
   }
 }
 
-export const add_new_users = (newUser) => {
+const save_user_profile = (userData) => {
+  return {
+    type: 'SAVE_USER_PROFILE',
+    userData
+  }
+}
+
+const add_new_user = (newUser) => {
   return {
     type: 'ADD_NEW_USER',
     newUser
   }
+}
+
+export {
+  fetch_users_from_api,
+  save_user_profile,
+  add_new_user
 }

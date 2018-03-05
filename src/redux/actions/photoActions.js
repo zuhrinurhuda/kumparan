@@ -7,7 +7,7 @@ const save_albums_to_store = (albums) => {
   }
 }
 
-export const fetch_albums_from_api = () => {
+const fetch_albums_from_api = () => {
   return (dispatch, getState) => {
     let url = 'https://jsonplaceholder.typicode.com/albums'
     axios.get(url)
@@ -25,7 +25,7 @@ const save_photos_to_store = (photos) => {
   }
 }
 
-export const fetch_photos_from_api = () => {
+const fetch_photos_from_api = () => {
   return (dispatch, getState) => {
     let url = 'https://jsonplaceholder.typicode.com/photos'
     axios.get(url)
@@ -34,4 +34,9 @@ export const fetch_photos_from_api = () => {
       })
       .catch(err => console.log(err))
   }
+}
+
+export {
+  fetch_albums_from_api,
+  fetch_photos_from_api
 }

@@ -8,6 +8,7 @@ import { add_new_post } from '../redux/actions'
 const mapStateToProps = state => {
   return {
     posts: state.postReducers.posts,
+    userProfile: state.userReducers.userProfile,
     users: state.userReducers.users
   }
 }
@@ -55,13 +56,14 @@ class PostList extends Component {
   }
 
   render() {
-    let currentUser = this.state.user
-    let user = this.props.users.filter(user => user.name === currentUser.displayName)
-    let posts = this.props.posts.filter(post => post.userId === user[0].id)
+    console.log('post list', this.props)
+    // let currentUser = this.state.user
+    // let user = this.props.users.filter(user => user.name === currentUser.displayName)
+    // let posts = this.props.posts.filter(post => post.userId === user[0].id)
 
     return (
       <Segment.Group>
-        <Form>
+        {/* <Form>
           <Form.Group widths='equal'>
             <Form.Input fluid
               name='title'
@@ -91,7 +93,7 @@ class PostList extends Component {
             </Item.Group>
           </Segment>
           )
-        })}
+        })} */}
       </Segment.Group>
     )
   }

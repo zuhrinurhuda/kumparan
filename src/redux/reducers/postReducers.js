@@ -10,8 +10,7 @@ const postReducers = (state = initialState, action) => {
     case 'SAVE_COMMENTS_TO_STORE':
       return { ...state, comments: action.comments }
     case 'ADD_NEW_POST':
-      let newPosts = state.posts.concat(action.newPost)
-      return { ...state, posts: newPosts }
+      return { ...state, posts: state.posts.concat(action.newPost) }
     default:
       return state
   }
